@@ -416,8 +416,10 @@ async function announce(proc: TunnelProcess, _s: Services): Promise<void> {
   }
   if (settings.copyUrlOnStart) { await vscode.env.clipboard.writeText(url); }
   if (settings.openBrowserOnStart) { void vscode.env.openExternal(vscode.Uri.parse(url)); }
+  const headline = settings.copyUrlOnStart ? l10n.t('{0} → {1}  (copied)', proc.spec.label, url) : l10n.t('{0} → {1}', proc.spec.label, url);
+  const hint = proc.spec.kind === 'quick' ? ' ' + l10n.t('DNS for new quick tunnels can take a minute or two to resolve.') : '';
   const choice = await vscode.window.showInformationMessage(
-    settings.copyUrlOnStart ? l10n.t('{0} → {1}  (copied)', proc.spec.label, url) : l10n.t('{0} → {1}', proc.spec.label, url),
+    headline + hint,
     l10n.t('Open'),
     l10n.t('Copy'),
     l10n.t('Stop'),

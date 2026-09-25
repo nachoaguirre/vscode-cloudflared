@@ -47,6 +47,7 @@
   "Creates the tunnel, routes a hostname and starts it.": "Crea el túnel, enruta un hostname y lo inicia.",
   "Creating tunnel \"{0}\"…": "Creando el túnel \"{0}\"…",
   "Currently using {0}": "Actualmente se usa {0}",
+  "DNS for new quick tunnels can take a minute or two to resolve.": "El DNS de un quick tunnel nuevo puede tardar uno o dos minutos en resolver.",
   "DNS records pointing to it are not removed automatically.": "Los registros DNS que apuntan a él no se eliminan automáticamente.",
   "Delete": "Eliminar",
   "Delete named tunnel": "Eliminar túnel con nombre",

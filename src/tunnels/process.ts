@@ -35,6 +35,7 @@ export class TunnelProcess implements vscode.Disposable {
   private child: ChildProcess | undefined;
   private stdoutRest = '';
   private stderrRest = '';
+  private readonly firstLines: string[] = [];
   private readonly lastLines: string[] = [];
   private readonly emitter = new vscode.EventEmitter<TunnelProcess>();
   readonly onDidChange = this.emitter.event;
@@ -81,7 +82,7 @@ export class TunnelProcess implements vscode.Disposable {
       if (this._state === 'stopping' || (code === 0 && this._state !== 'starting')) {
         this.setState('stopped');
       } else if (this._state !== 'error') {
-        this._error = this._error ?? this.lastErrorLine() ?? vscode.l10n.t('cloudflared exited unexpectedly (code {0})', String(code));
+        this._error = this._error ?? this.lastErrorLine() ?? this.lastMeaningfulLine() ?? vscode.l10n.t('cloudflared exited unexpectedly (code {0})', String(code));
         this.setState('error');
       }
       this.exitEmitter.fire({ code, signal });
@@ -95,6 +96,7 @@ export class TunnelProcess implements vscode.Disposable {
     for (const line of lines) {
       if (!line.trim()) { continue; }
       this.channel.appendLine(line);
+      if (this.firstLines.length < 20) { this.firstLines.push(line); }
       this.lastLines.push(line);
       if (this.lastLines.length > 50) { this.lastLines.shift(); }
       this.handleLine(line);
@@ -126,6 +128,19 @@ export class TunnelProcess implements vscode.Disposable {
       // Fatal errors during startup: keep the first one as the headline.
       this._error = this._error ?? logMessage(line);
     }
+  }
+
+  /** For non-logfmt failures (usage errors, panics): the first line that reads like a problem, else the first line. */
+  private lastMeaningfulLine(): string | undefined {
+    const seen = new Set<string>();
+    const pool = [...this.firstLines, ...this.lastLines].filter((l) => {
+      if (seen.has(l)) { return false; }
+      seen.add(l);
+      return !/^\s*--?[a-z]/i.test(l) && !/^\S+\s+(INF|DBG)\s/.test(l) && !/^(NAME|USAGE|OPTIONS|DESCRIPTION|COMMANDS):?/.test(l.trim());
+    });
+    const hit = pool.find((l) => /incorrect usage|flag provided|error|failed|cannot|unable|not found|denied|invalid|panic/i.test(l));
+    const line = hit ?? pool[0];
+    return line ? line.trim().slice(0, 300) : undefined;
   }
 
   private lastErrorLine(): string | undefined {

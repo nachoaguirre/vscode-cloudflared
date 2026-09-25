@@ -192,45 +192,172 @@
     ],
     "menus": {
       "commandPalette": [
-        { "command": "cloudflared.statusMenu", "when": "false" },
-        { "command": "cloudflared.stopTunnel", "when": "cloudflared.hasRunningTunnels" },
-        { "command": "cloudflared.restartTunnel", "when": "cloudflared.hasRunningTunnels" },
-        { "command": "cloudflared.stopAll", "when": "cloudflared.hasRunningTunnels" },
-        { "command": "cloudflared.copyUrl", "when": "cloudflared.hasRunningTunnels" },
-        { "command": "cloudflared.openInBrowser", "when": "cloudflared.hasRunningTunnels" },
-        { "command": "cloudflared.setLocalUrl", "when": "cloudflared.loggedIn" },
-        { "command": "cloudflared.routeDns", "when": "cloudflared.loggedIn" },
-        { "command": "cloudflared.deleteTunnel", "when": "cloudflared.loggedIn" },
-        { "command": "cloudflared.runTunnel", "when": "cloudflared.loggedIn" },
-        { "command": "cloudflared.createTunnel", "when": "cloudflared.installed" },
-        { "command": "cloudflared.runWithToken", "when": "cloudflared.installed" },
-        { "command": "cloudflared.exposePort", "when": "cloudflared.installed" }
+        {
+          "command": "cloudflared.statusMenu",
+          "when": "false"
+        },
+        {
+          "command": "cloudflared.stopTunnel",
+          "when": "cloudflared.hasRunningTunnels"
+        },
+        {
+          "command": "cloudflared.restartTunnel",
+          "when": "cloudflared.hasRunningTunnels"
+        },
+        {
+          "command": "cloudflared.stopAll",
+          "when": "cloudflared.hasRunningTunnels"
+        },
+        {
+          "command": "cloudflared.copyUrl",
+          "when": "cloudflared.hasRunningTunnels"
+        },
+        {
+          "command": "cloudflared.openInBrowser",
+          "when": "cloudflared.hasRunningTunnels"
+        },
+        {
+          "command": "cloudflared.setLocalUrl",
+          "when": "cloudflared.loggedIn"
+        },
+        {
+          "command": "cloudflared.routeDns",
+          "when": "cloudflared.loggedIn"
+        },
+        {
+          "command": "cloudflared.deleteTunnel",
+          "when": "cloudflared.loggedIn"
+        },
+        {
+          "command": "cloudflared.runTunnel",
+          "when": "cloudflared.loggedIn"
+        },
+        {
+          "command": "cloudflared.createTunnel",
+          "when": "cloudflared.installed"
+        },
+        {
+          "command": "cloudflared.runWithToken",
+          "when": "cloudflared.installed"
+        },
+        {
+          "command": "cloudflared.exposePort",
+          "when": "cloudflared.installed"
+        }
       ],
       "view/title": [
-        { "command": "cloudflared.exposePort", "when": "view == cloudflared.tunnels && cloudflared.installed", "group": "navigation@1" },
-        { "command": "cloudflared.createTunnel", "when": "view == cloudflared.tunnels && cloudflared.installed", "group": "navigation@2" },
-        { "command": "cloudflared.refresh", "when": "view == cloudflared.tunnels", "group": "navigation@3" },
-        { "command": "cloudflared.setup", "when": "view == cloudflared.tunnels", "group": "1_setup@1" },
-        { "command": "cloudflared.login", "when": "view == cloudflared.tunnels && cloudflared.installed", "group": "1_setup@2" },
-        { "command": "cloudflared.runWithToken", "when": "view == cloudflared.tunnels && cloudflared.installed", "group": "2_run@1" },
-        { "command": "cloudflared.stopAll", "when": "view == cloudflared.tunnels && cloudflared.hasRunningTunnels", "group": "2_run@2" },
-        { "command": "cloudflared.openDashboard", "when": "view == cloudflared.tunnels", "group": "3_links@1" },
-        { "command": "cloudflared.showLogs", "when": "view == cloudflared.tunnels", "group": "3_links@2" }
+        {
+          "command": "cloudflared.exposePort",
+          "when": "view == cloudflared.tunnels && cloudflared.installed",
+          "group": "navigation@1"
+        },
+        {
+          "command": "cloudflared.createTunnel",
+          "when": "view == cloudflared.tunnels && cloudflared.installed",
+          "group": "navigation@2"
+        },
+        {
+          "command": "cloudflared.refresh",
+          "when": "view == cloudflared.tunnels",
+          "group": "navigation@3"
+        },
+        {
+          "command": "cloudflared.setup",
+          "when": "view == cloudflared.tunnels",
+          "group": "1_setup@1"
+        },
+        {
+          "command": "cloudflared.login",
+          "when": "view == cloudflared.tunnels && cloudflared.installed",
+          "group": "1_setup@2"
+        },
+        {
+          "command": "cloudflared.runWithToken",
+          "when": "view == cloudflared.tunnels && cloudflared.installed",
+          "group": "2_run@1"
+        },
+        {
+          "command": "cloudflared.stopAll",
+          "when": "view == cloudflared.tunnels && cloudflared.hasRunningTunnels",
+          "group": "2_run@2"
+        },
+        {
+          "command": "cloudflared.openDashboard",
+          "when": "view == cloudflared.tunnels",
+          "group": "3_links@1"
+        },
+        {
+          "command": "cloudflared.showLogs",
+          "when": "view == cloudflared.tunnels",
+          "group": "3_links@2"
+        }
       ],
       "view/item/context": [
-        { "command": "cloudflared.copyUrl", "when": "view == cloudflared.tunnels && viewItem =~ /active/ && viewItem =~ /hasUrl/", "group": "inline@1" },
-        { "command": "cloudflared.openInBrowser", "when": "view == cloudflared.tunnels && viewItem =~ /active/ && viewItem =~ /hasUrl/", "group": "inline@2" },
-        { "command": "cloudflared.stopTunnel", "when": "view == cloudflared.tunnels && viewItem =~ /active|error/", "group": "inline@3" },
-        { "command": "cloudflared.runTunnel", "when": "view == cloudflared.tunnels && viewItem =~ /^named/ && !(viewItem =~ /active/)", "group": "inline@1" },
-        { "command": "cloudflared.copyUrl", "when": "view == cloudflared.tunnels && viewItem =~ /hasUrl/", "group": "1_url@1" },
-        { "command": "cloudflared.openInBrowser", "when": "view == cloudflared.tunnels && viewItem =~ /hasUrl/", "group": "1_url@2" },
-        { "command": "cloudflared.runTunnel", "when": "view == cloudflared.tunnels && viewItem =~ /^named/ && !(viewItem =~ /active/)", "group": "2_run@1" },
-        { "command": "cloudflared.restartTunnel", "when": "view == cloudflared.tunnels && viewItem =~ /active/", "group": "2_run@2" },
-        { "command": "cloudflared.stopTunnel", "when": "view == cloudflared.tunnels && viewItem =~ /active|error/", "group": "2_run@3" },
-        { "command": "cloudflared.showLogs", "when": "view == cloudflared.tunnels && viewItem =~ /process/", "group": "2_run@4" },
-        { "command": "cloudflared.setLocalUrl", "when": "view == cloudflared.tunnels && viewItem =~ /^named/", "group": "3_config@1" },
-        { "command": "cloudflared.routeDns", "when": "view == cloudflared.tunnels && viewItem =~ /^named/", "group": "3_config@2" },
-        { "command": "cloudflared.deleteTunnel", "when": "view == cloudflared.tunnels && viewItem =~ /^named/ && !(viewItem =~ /active/)", "group": "4_danger@1" }
+        {
+          "command": "cloudflared.copyUrl",
+          "when": "view == cloudflared.tunnels && viewItem =~ /active/ && viewItem =~ /hasUrl/",
+          "group": "inline@1"
+        },
+        {
+          "command": "cloudflared.openInBrowser",
+          "when": "view == cloudflared.tunnels && viewItem =~ /active/ && viewItem =~ /hasUrl/",
+          "group": "inline@2"
+        },
+        {
+          "command": "cloudflared.stopTunnel",
+          "when": "view == cloudflared.tunnels && viewItem =~ /active|error/",
+          "group": "inline@3"
+        },
+        {
+          "command": "cloudflared.runTunnel",
+          "when": "view == cloudflared.tunnels && viewItem =~ /^named/ && !(viewItem =~ /active/)",
+          "group": "inline@1"
+        },
+        {
+          "command": "cloudflared.copyUrl",
+          "when": "view == cloudflared.tunnels && viewItem =~ /hasUrl/",
+          "group": "1_url@1"
+        },
+        {
+          "command": "cloudflared.openInBrowser",
+          "when": "view == cloudflared.tunnels && viewItem =~ /hasUrl/",
+          "group": "1_url@2"
+        },
+        {
+          "command": "cloudflared.runTunnel",
+          "when": "view == cloudflared.tunnels && viewItem =~ /^named/ && !(viewItem =~ /active/)",
+          "group": "2_run@1"
+        },
+        {
+          "command": "cloudflared.restartTunnel",
+          "when": "view == cloudflared.tunnels && viewItem =~ /active/",
+          "group": "2_run@2"
+        },
+        {
+          "command": "cloudflared.stopTunnel",
+          "when": "view == cloudflared.tunnels && viewItem =~ /active|error/",
+          "group": "2_run@3"
+        },
+        {
+          "command": "cloudflared.showLogs",
+          "when": "view == cloudflared.tunnels && viewItem =~ /process/",
+          "group": "2_run@4"
+        },
+        {
+          "command": "cloudflared.setLocalUrl",
+          "when": "view == cloudflared.tunnels && viewItem =~ /^named/",
+          "group": "3_config@1"
+        },
+        {
+          "command": "cloudflared.routeDns",
+          "when": "view == cloudflared.tunnels && viewItem =~ /^named/",
+          "group": "3_config@2"
+        },
+        {
+          "command": "cloudflared.deleteTunnel",
+          "when": "view == cloudflared.tunnels && viewItem =~ /^named/ && !(viewItem =~ /active/)",
+          "group": "4_danger@1"
+        }
       ]
     },
     "configuration": {
@@ -254,7 +381,9 @@
         },
         "cloudflared.extraArgs": {
           "type": "array",
-          "items": { "type": "string" },
+          "items": {
+            "type": "string"
+          },
           "default": [],
           "markdownDescription": "%config.extraArgs%"
         },
@@ -280,29 +409,46 @@
             "id": "install",
             "title": "%walkthrough.install.title%",
             "description": "%walkthrough.install.description%",
-            "media": { "markdown": "media/walkthrough/install.md" },
-            "completionEvents": ["onContext:cloudflared.installed"]
+            "media": {
+              "markdown": "media/walkthrough/install.md"
+            },
+            "completionEvents": [
+              "onContext:cloudflared.installed"
+            ]
           },
           {
             "id": "expose",
             "title": "%walkthrough.expose.title%",
             "description": "%walkthrough.expose.description%",
-            "media": { "markdown": "media/walkthrough/expose.md" },
-            "completionEvents": ["onCommand:cloudflared.exposePort"]
+            "media": {
+              "markdown": "media/walkthrough/expose.md"
+            },
+            "completionEvents": [
+              "onCommand:cloudflared.exposePort"
+            ]
           },
           {
             "id": "login",
             "title": "%walkthrough.login.title%",
             "description": "%walkthrough.login.description%",
-            "media": { "markdown": "media/walkthrough/login.md" },
-            "completionEvents": ["onContext:cloudflared.loggedIn"]
+            "media": {
+              "markdown": "media/walkthrough/login.md"
+            },
+            "completionEvents": [
+              "onContext:cloudflared.loggedIn"
+            ]
           },
           {
             "id": "named",
             "title": "%walkthrough.named.title%",
             "description": "%walkthrough.named.description%",
-            "media": { "markdown": "media/walkthrough/named.md" },
-            "completionEvents": ["onCommand:cloudflared.createTunnel", "onCommand:cloudflared.runTunnel"]
+            "media": {
+              "markdown": "media/walkthrough/named.md"
+            },
+            "completionEvents": [
+              "onCommand:cloudflared.createTunnel",
+              "onCommand:cloudflared.runTunnel"
+            ]
           }
         ]
       }
@@ -317,13 +463,15 @@
     "test": "tsc -p tsconfig.test.json && node --test \"out/test/**/*.test.js\"",
     "lint": "eslint src test",
     "package": "vsce package --no-dependencies",
-    "publish": "vsce publish --no-dependencies"
+    "publish": "vsce publish --no-dependencies",
+    "test:smoke": "pnpm run compile && tsc -p tsconfig.smoke.json && node out/test/smoke/runTest.js"
   },
   "devDependencies": {
     "@types/node": "^22.10.0",
     "@types/vscode": "^1.96.0",
     "@typescript-eslint/eslint-plugin": "^8.18.0",
     "@typescript-eslint/parser": "^8.18.0",
+    "@vscode/test-electron": "^3.1.0",
     "@vscode/vsce": "^3.2.1",
     "esbuild": "^0.24.0",
     "eslint": "^9.17.0",

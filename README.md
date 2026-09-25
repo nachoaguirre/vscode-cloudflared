@@ -69,8 +69,11 @@ pnpm install
 pnpm watch        # rebuild on change
 # press F5 in VS Code to launch the Extension Development Host
 pnpm test         # unit tests for the parsers
+pnpm test:smoke   # launches a real VS Code, activates the extension and runs a quick tunnel end to end
 pnpm package      # builds the .vsix
 ```
+
+The smoke test uses the VS Code installed under `/Applications` on macOS (set `VSCODE_EXECUTABLE` to override) and downloads a copy otherwise. It needs `cloudflared` on the machine and network access.
 
 ## License
 

@@ -9,7 +9,14 @@ import { TunnelManager } from './tunnels/manager';
 import { StatusBar } from './ui/statusBar';
 import { TunnelTreeProvider } from './ui/tree';
 
-export async function activate(context: vscode.ExtensionContext): Promise<void> {
+/** Exposed for the smoke tests; not a stable public API. */
+export interface ExtensionApi {
+  manager: TunnelManager;
+  setup: SetupService;
+  binary: BinaryService;
+}
+
+export async function activate(context: vscode.ExtensionContext): Promise<ExtensionApi> {
   const log = getLog();
   context.subscriptions.push(log);
   log.info(`Activating vscode-cloudflared ${context.extension.packageJSON.version} on ${process.platform}/${process.arch}`);
@@ -42,7 +49,10 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
   );
 
   await setup.refresh();
-  void setup.maybeShowFirstRunHint(context);
+  if (!process.env.CLOUDFLARED_EXT_TEST) {
+    void setup.maybeShowFirstRunHint(context);
+  }
+  return { manager, setup, binary };
 }
 
 export function deactivate(): void {
